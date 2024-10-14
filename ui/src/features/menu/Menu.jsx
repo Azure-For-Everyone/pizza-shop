@@ -9,6 +9,7 @@ function Menu() {
   const [query, setQuery] = useState('');
 
   async function handleSubmit(e) {
+    e.preventDefault();
     const filter = { query };
     const newMenu = await loader(filter);
     setMenu(newMenu);
