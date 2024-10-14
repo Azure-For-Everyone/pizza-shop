@@ -4,19 +4,15 @@ import { getMenu } from '../../services/apiRestaurant';
 import MenuItem from './MenuItem';
 
 function Menu() {
-  const filter = {};
-  let menu = useLoaderData(filter);
-
+  const initialMenu = useLoaderData();
+  const [menu, setMenu] = useState(initialMenu);
   const [query, setQuery] = useState('');
 
-  function handleSubmit(e) {
-    loader(filter).then((data) => {
-      menu = data;
-    });
-    //console.log('menu', menu);
-    e.preventDefault();
+  async function handleSubmit(e) {
+    const filter = { query };
+    const newMenu = await loader(filter);
+    setMenu(newMenu);
   }
-
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -38,9 +34,7 @@ function Menu() {
 }
 
 export async function loader(filter) {
-  //console.log('filter', filter);
-  const menu = await getMenu();
+  const menu = await getMenu(filter);
   return menu;
 }
-
 export default Menu;

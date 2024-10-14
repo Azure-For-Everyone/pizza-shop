@@ -12,11 +12,20 @@ CORS(app)
 orders = []
 
 
-@app.route('/api/menu', methods=['GET'])
+@app.route('/api/menu', methods=['POST'])
 def get_menu():
+    filter = request.json
+
+    # Check if filter has a 'query' key and not empty
+    filteredMenu = menu
+    if 'query' in filter and filter['query']:
+        filteredMenu = [
+            item for item in menu if filter['query'].lower() in item['name'].lower()]
+
     payload = {
         "status": "success",
-        "data": menu
+        "data": filteredMenu,
+        "filter": filter
     }
     return jsonify(payload)
 
@@ -34,7 +43,7 @@ def get_order(id):
         return jsonify({"error": "Order not found"}), 404
 
 
-@app.route('/api/order', methods=['POST'])
+@ app.route('/api/order', methods=['POST'])
 def create_order():
     new_order = request.json
     new_order['id'] = len(orders) + 1
