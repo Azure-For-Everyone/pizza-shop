@@ -24,9 +24,13 @@ function Menu() {
       </form>
 
       <ul className="divide-y divide-stone-200 px-2">
-        {menu.map((pizza) => (
-          <MenuItem pizza={pizza} key={pizza.id} />
-        ))}
+        {menu
+          .filter((pizza) =>
+            pizza.name.toLowerCase().includes(query.toLowerCase()),
+          )
+          .map((pizza) => (
+            <MenuItem pizza={pizza} key={pizza.id} />
+          ))}
       </ul>
     </div>
   );
