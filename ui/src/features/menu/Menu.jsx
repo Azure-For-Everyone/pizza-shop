@@ -4,11 +4,16 @@ import { getMenu } from '../../services/apiRestaurant';
 import MenuItem from './MenuItem';
 
 function Menu() {
-  const menu = useLoaderData();
+  const filter = {};
+  let menu = useLoaderData(filter);
 
   const [query, setQuery] = useState('');
 
   function handleSubmit(e) {
+    loader(filter).then((data) => {
+      menu = data;
+    });
+    //console.log('menu', menu);
     e.preventDefault();
   }
 
@@ -24,19 +29,16 @@ function Menu() {
       </form>
 
       <ul className="divide-y divide-stone-200 px-2">
-        {menu
-          .filter((pizza) =>
-            pizza.name.toLowerCase().includes(query.toLowerCase()),
-          )
-          .map((pizza) => (
-            <MenuItem pizza={pizza} key={pizza.id} />
-          ))}
+        {menu.map((pizza) => (
+          <MenuItem pizza={pizza} key={pizza.id} />
+        ))}
       </ul>
     </div>
   );
 }
 
-export async function loader() {
+export async function loader(filter) {
+  //console.log('filter', filter);
   const menu = await getMenu();
   return menu;
 }
