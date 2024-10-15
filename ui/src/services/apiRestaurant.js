@@ -1,7 +1,7 @@
 const API_URL = "http://localhost:8889/api";
 
 export async function getMenu(filter) {
-  const res = await fetch(`${API_URL}/menu`, {
+  const res = await fetch(`${API_URL}/menu/llm`, {
     method: "POST",
     body: JSON.stringify(filter),
     headers: {

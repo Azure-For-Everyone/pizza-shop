@@ -4,6 +4,7 @@ from database.menu import menu
 import time
 import random
 import datetime
+from pizza_assistant import PizzaAssistant
 
 app = Flask(__name__)
 CORS(app)
@@ -20,7 +21,29 @@ def get_menu():
     filteredMenu = menu
     if 'query' in filter and filter['query']:
         filteredMenu = [
-            item for item in menu if filter['query'].lower() in item['name'].lower()]
+            item for item in menu
+            if filter['query'].lower() in item['name'].lower()
+        ]
+    payload = {
+        "status": "success",
+        "data": filteredMenu,
+        "filter": filter
+    }
+    return jsonify(payload)
+
+# Generate a smart function that translates the query in an LLM prompt using
+# Azure OpenAI
+
+
+@app.route('/api/menu/llm', methods=['POST'])
+async def get_menu_azure_openai():
+    filter = request.json
+
+    # Check if filter has a 'query' key and not empty
+    filteredMenu = menu
+    if 'query' in filter and filter['query']:
+        pizzaAssistant = PizzaAssistant()
+        filteredMenu = await pizzaAssistant.get_menu(filter['query'])
 
     payload = {
         "status": "success",
@@ -30,7 +53,7 @@ def get_menu():
     return jsonify(payload)
 
 
-@app.route('/api/order/<int:id>', methods=['GET'])
+@ app.route('/api/order/<int:id>', methods=['GET'])
 def get_order(id):
     order = next((order for order in orders if order['id'] == id), None)
     if order:

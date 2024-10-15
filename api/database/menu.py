@@ -2,13 +2,13 @@ menu = [
     {
         "id": 1,
         "name": "Margherita",
-                "unitPrice": 12,
-                "imageUrl": "http://localhost:8889/api/image/pizza-1.jpg",
-                "ingredients": [
-                    "tomato",
-                    "mozzarella",
-                    "basil"
-                ],
+        "unitPrice": 12,
+        "imageUrl": "http://localhost:8889/api/image/pizza-1.jpg",
+        "ingredients": [
+            "tomato",
+            "mozzarella",
+            "basil"
+        ],
         "soldOut": False
     },
     {
