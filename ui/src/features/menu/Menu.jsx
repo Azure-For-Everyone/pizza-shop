@@ -19,14 +19,14 @@ function Menu() {
   }
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         <input
           placeholder="Search pizza"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="bg-white-100 my-10 w-full rounded-full px-8 py-3 text-[11px] transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:w-full sm:focus:w-full"
         ></input>
-      </form>
+      </form> */}
 
       {loading && <p>Loading...</p>}
       {menu.length === 0 && <p>No pizzas found</p>}

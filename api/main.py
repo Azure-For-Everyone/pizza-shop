@@ -31,27 +31,6 @@ def get_menu():
     }
     return jsonify(payload)
 
-# Generate a smart function that translates the query in an LLM prompt using
-# Azure OpenAI
-
-
-@app.route('/api/menu/llm', methods=['POST'])
-async def get_menu_azure_openai():
-    filter = request.json
-
-    # Check if filter has a 'query' key and not empty
-    filteredMenu = menu
-    if 'query' in filter and filter['query']:
-        pizzaAssistant = PizzaAssistant()
-        filteredMenu = await pizzaAssistant.get_automated_menu(filter['query'])
-
-    payload = {
-        "status": "success",
-        "data": filteredMenu,
-        "filter": filter
-    }
-    return jsonify(payload)
-
 
 @ app.route('/api/order/<int:id>', methods=['GET'])
 def get_order(id):
@@ -112,6 +91,25 @@ def update_order():
 def get_image(id):
     return send_from_directory('database/images', id)
 
+
+# Generate a smart function that translates the query in an LLM prompt using
+# Azure OpenAI
+@app.route('/api/menu/llm', methods=['POST'])
+async def get_menu_azure_openai():
+    filter = request.json
+
+    # Check if filter has a 'query' key and not empty
+    filteredMenu = menu
+    if 'query' in filter and filter['query']:
+        pizzaAssistant = PizzaAssistant()
+        filteredMenu = await pizzaAssistant.get_automated_menu(filter['query'])
+
+    payload = {
+        "status": "success",
+        "data": filteredMenu,
+        "filter": filter
+    }
+    return jsonify(payload)
 
 if __name__ == '__main__':
     app.run(debug=True, port=8889)
