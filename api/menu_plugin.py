@@ -29,27 +29,3 @@ class MenuPlugin:
         # Convert to json string
         jsonMenu = json.dumps(filteredMenu)
         return jsonMenu
-
-    @kernel_function(
-        name="filter_pizza_based_on_price",
-        description="When a user is looking a specific price range for a pizza.",
-    )
-    def filter_pizza_based_on_price(self,
-                                    min_price: int,
-                                    max_price: int
-                                    ) -> Annotated[str, "returns a list of pizzas in json format"]:
-        """Returns a list of pizzas based on price range."""
-
-        print("Planner called: filter_pizza_based_on_price")
-        query = f"min_price={min_price} - max_price={max_price}"
-        print(query)
-
-        # Filter the menu based on the query
-        filteredMenu = [
-            item for item in self.pizzaMenu
-            if min_price <= item['unitPrice'] <= max_price
-        ]
-
-        # Convert to json string
-        jsonMenu = json.dumps(filteredMenu)
-        return jsonMenu
