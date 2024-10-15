@@ -1,19 +1,20 @@
 import json
-import os
 from semantic_kernel import Kernel
 from semantic_kernel.contents.chat_history import ChatHistory
 from semantic_kernel.connectors.ai.open_ai import AzureChatCompletion
-from semantic_kernel.planners import FunctionCallingStepwisePlanner, FunctionCallingStepwisePlannerOptions
+from semantic_kernel.planners import (
+    FunctionCallingStepwisePlanner, FunctionCallingStepwisePlannerOptions
+)
 from menu_plugin import MenuPlugin
 from database.menu import menu
-from dotenv import load_dotenv
+from dotenv import dotenv_values
 
 # Load environment variables from .env.local file
-load_dotenv(dotenv_path='.env.local')
-AZUREOPENAI_API_ENDPOINT = os.getenv("AZUREOPENAI_API_ENDPOINT")
-AZUREOPENAI_API_KEY = os.getenv("AZUREOPENAI_API_KEY")
-AZUREOPENAI_API_VERSION = os.getenv("AZUREOPENAI_API_VERSION")
-AZUREOPENAI_DEPLOYMENT_NAME = os.getenv("AZUREOPENAI_DEPLOYMENT_NAME")
+config = dotenv_values(".env.local")
+AZUREOPENAI_API_ENDPOINT = config["AZUREOPENAI_API_ENDPOINT"]
+AZUREOPENAI_API_KEY = config["AZUREOPENAI_API_KEY"]
+AZUREOPENAI_API_VERSION = config["AZUREOPENAI_API_VERSION"]
+AZUREOPENAI_DEPLOYMENT_NAME = config["AZUREOPENAI_DEPLOYMENT_NAME"]
 
 
 class PizzaAssistant:
