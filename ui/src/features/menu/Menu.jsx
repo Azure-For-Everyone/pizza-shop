@@ -7,11 +7,14 @@ function Menu() {
   const initialMenu = useLoaderData();
   const [menu, setMenu] = useState(initialMenu);
   const [query, setQuery] = useState('');
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
     const filter = { query };
+    setLoading(true);
     const newMenu = await loader(filter);
+    setLoading(false);
     setMenu(newMenu);
   }
   return (
@@ -25,11 +28,15 @@ function Menu() {
         ></input>
       </form>
 
-      <ul className="divide-y divide-stone-200 px-2">
-        {menu.map((pizza) => (
-          <MenuItem pizza={pizza} key={pizza.id} />
-        ))}
-      </ul>
+      {loading && <p>Loading...</p>}
+      {menu.length === 0 && <p>No pizzas found</p>}
+      {!loading && menu.length > 0 && (
+        <ul className="divide-y divide-stone-200 px-2">
+          {menu.map((pizza) => (
+            <MenuItem pizza={pizza} key={pizza.id} />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

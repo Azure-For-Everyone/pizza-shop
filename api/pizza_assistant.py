@@ -8,8 +8,8 @@ from menu_plugin import MenuPlugin
 from database.menu import menu
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
+# Load environment variables from .env.local file
+load_dotenv(dotenv_path='.env.local')
 AZUREOPENAI_API_ENDPOINT = os.getenv("AZUREOPENAI_API_ENDPOINT")
 AZUREOPENAI_API_KEY = os.getenv("AZUREOPENAI_API_KEY")
 AZUREOPENAI_API_VERSION = os.getenv("AZUREOPENAI_API_VERSION")
@@ -36,7 +36,7 @@ class PizzaAssistant:
             endpoint=AZUREOPENAI_API_ENDPOINT
         ))
 
-    async def get_menu(self, query):
+    async def get_automated_menu(self, query):
 
         self.history = ChatHistory()
         # Let's add the pizza name with the ingredients to the system message
@@ -76,7 +76,6 @@ class PizzaAssistant:
             service_id=self.service_id, options=options)
 
         result = await planner.invoke(self.kernel, prompt)
-        print(result)
         answer = result.final_answer
         filteredMenu = json.loads(answer)
 

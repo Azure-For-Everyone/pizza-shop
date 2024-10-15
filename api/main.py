@@ -43,7 +43,7 @@ async def get_menu_azure_openai():
     filteredMenu = menu
     if 'query' in filter and filter['query']:
         pizzaAssistant = PizzaAssistant()
-        filteredMenu = await pizzaAssistant.get_menu(filter['query'])
+        filteredMenu = await pizzaAssistant.get_automated_menu(filter['query'])
 
     payload = {
         "status": "success",
