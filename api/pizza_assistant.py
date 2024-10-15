@@ -44,32 +44,32 @@ class PizzaAssistant:
         for pizza in menu:
             pizzaMenuString += f"{pizza['name']} - {pizza['ingredients']}, "
 
-            prompt = (
-                "---------------- \\n "
-                "SYSTEM MESSAGE \\n "
-                "I'm a pizza shop and specialize in making delicious pizzas. I can help you find the perfect pizza for you. "
-                "Next to that I'm also a dietitian and can help you with your diet or advice on what to eat, and what not to eat. "
-                "You might be allergic to some ingredients, or you might be on a diet, or you might be a vegetarian or vegan. These are "
-                "things I can help you with. I can also find the best prices and lowest priced pizzas. \\n\\n\\n\\n\\n\\n "
-                "---------\\n "
-                "EXPECTED OUTPUT\\n "
-                "Call the menu plugin and output in JSON format only, you will never return plain text, just like following example. Make sure only to return a valid json as"
-                " output, if no results or no pizzas found return an empty [] array, if only one result put it in array."
-                "\"[{\\\"id\\\":2,\\\"name\\\":\\\"Capricciosa\\\",\\\"unitPrice\\\":14,\\\"imageUrl\\\":\\\"http://localhost:8889/api/image/pizza-2.jpg\\\","
-                "\\\"ingredients\\\":[\\\"tomato\\\",\\\"mozzarella\\\"...]}]\" \\n\\n\\n\\n "
-                f"Following is all the pizzas I have on the menu with the ingredients: "
-                "---------\\n "
-                "PIZZA MENU \\n "
-                f"{pizzaMenuString}"
-                "---------\\n"
-                "USER Prompt \\n"
-                "The user likes to look for pizza meeting following criteria:"
-                f"{query}"
-            )
+        prompt = (
+            "---------------- \\n "
+            "SYSTEM MESSAGE \\n "
+            "I'm a pizza shop and specialize in making delicious pizzas. I can help you find the perfect pizza for you. "
+            "Next to that I'm also a dietitian and can help you with your diet or advice on what to eat, and what not to eat. "
+            "You might be allergic to some ingredients, or you might be on a diet, or you might be a vegetarian or vegan. These are "
+            "things I can help you with. I can also find the best prices and lowest priced pizzas. \\n\\n\\n\\n\\n\\n "
+            "---------\\n "
+            "EXPECTED OUTPUT\\n "
+            "Call the menu plugin and output in JSON format only, you will never return plain text, just like following example. Make sure only to return a valid json as"
+            " output, if no results or no pizzas found return an empty [] array, if only one result put it in array."
+            "\"[{\\\"id\\\":2,\\\"name\\\":\\\"Capricciosa\\\",\\\"unitPrice\\\":14,\\\"imageUrl\\\":\\\"http://localhost:8889/api/image/pizza-2.jpg\\\","
+            "\\\"ingredients\\\":[\\\"tomato\\\",\\\"mozzarella\\\"...]}]\" \\n\\n\\n\\n "
+            f"Following is all the pizzas I have on the menu with the ingredients: "
+            "---------\\n "
+            "PIZZA MENU \\n "
+            f"{pizzaMenuString}"
+            "---------\\n"
+            "USER Prompt \\n"
+            "The user likes to look for pizza meeting following criteria:"
+            f"{query}"
+        )
 
         options = FunctionCallingStepwisePlannerOptions(
-            max_iterations=2,
-            max_tokens=40000,
+            max_iterations=5,
+            max_tokens=4000,
         )
 
         planner = FunctionCallingStepwisePlanner(
