@@ -31,25 +31,25 @@ To use the Pizza Ordering Web Application, follow these steps:
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/your-username/react-pizza-shop.git
+   git clone https://github.com/Azure-For-Everyone/pizza-shop
    ```
 
 2. Change into the project directory:
 
    ```sh
-   cd react-pizza-shop
+   cd pizza-shop
    ```
 
 3. Install dependencies:
 
    ```sh
-   npm install
+   yarn
    ```
 
 4. Start the development server:
 
    ```sh
-   npm run dev
+   yarn dev
    ```
 
 5. Open your web browser and navigate to the provided URL to access the app.
