@@ -23,10 +23,6 @@ class PizzaAssistant:
         # Initialize the kernel
         self.kernel = Kernel()
 
-        # Add the plugin
-        self.menu_plugin = MenuPlugin()
-        self.kernel.add_plugin(self.menu_plugin, plugin_name='menu_plugin')
-
         # Add Azure OpenAI chat completion
         self.service_id = "planner"
         self.kernel.add_service(AzureChatCompletion(
@@ -36,6 +32,10 @@ class PizzaAssistant:
             deployment_name=AZUREOPENAI_DEPLOYMENT_NAME,
             endpoint=AZUREOPENAI_API_ENDPOINT
         ))
+
+        # Add the plugin
+        self.menu_plugin = MenuPlugin()
+        self.kernel.add_plugin(self.menu_plugin, plugin_name='menu_plugin')
 
     async def get_automated_menu(self, query):
 
