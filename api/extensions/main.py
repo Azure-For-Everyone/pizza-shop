@@ -20,10 +20,9 @@ def get_menu():
     # Check if filter has a 'query' key and not empty
     filteredMenu = menu
     if 'query' in filter and filter['query']:
-        filteredMenu = [
-            item for item in menu
-            if filter['query'].lower() in item['name'].lower()
-        ]
+        pizzaAssistant = PizzaAssistant()
+        filteredMenu = pizzaAssistant.get_automated_menu(filter['query'])
+
     payload = {
         "status": "success",
         "data": filteredMenu,
